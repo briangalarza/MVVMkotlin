@@ -1,7 +1,8 @@
-package com.briangalarza.mvvmkotlin
+package com.briangalarza.mvvmkotlin.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.briangalarza.mvvmkotlin.R
 
 class MainActivity : AppCompatActivity() {
 
