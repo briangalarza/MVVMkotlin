@@ -1,23 +1,18 @@
 package com.briangalarza.mvvmkotlin.model
 
+import com.briangalarza.mvvmkotlin.dependencyInjection.DaggerApiComponent
 import io.reactivex.Single
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 
 //Se encarga de obtener la información del backend por medio de retrofit
 class CountriesService {
-    private val BASE_URL = "https://raw.githubusercontent.com"
-    private val api:CountriesApi
+
+    @Inject
+    lateinit var  api:CountriesApi
 
     init {
-        api = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-            .create(CountriesApi::class.java)
+        DaggerApiComponent.create().inject(this)
     }
 
     //Obtenemos los paises

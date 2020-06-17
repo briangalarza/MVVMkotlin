@@ -2,17 +2,26 @@ package com.briangalarza.mvvmkotlin.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.briangalarza.mvvmkotlin.dependencyInjection.DaggerApiComponent
 import com.briangalarza.mvvmkotlin.model.CountriesService
 import com.briangalarza.mvvmkotlin.model.Country
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 class ListViewModel: ViewModel() {
 
-    //Servicio de retrofit
-    private val countriesService = CountriesService()
+    //Servicio de retrofit con dagger
+
+    @Inject
+    lateinit var  countriesService: CountriesService
+
+    init{
+        DaggerApiComponent.create().inject(this)
+    }
+
     //RxJava
     private val disposable = CompositeDisposable()
 
