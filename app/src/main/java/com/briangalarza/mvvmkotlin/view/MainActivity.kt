@@ -32,6 +32,12 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
             adapter = countriesAdapter
         }
+
+        swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = false
+            viewModel.refresh()
+        }
+
         observeViewModel()
 
     }
@@ -46,13 +52,18 @@ class MainActivity : AppCompatActivity() {
         //Observer que actualiza la información de los paises
         viewModel.countries.observe(this, Observer { countries ->
             //Si countries no es vacio hacemos que actualice el adapter de countries con el valor que le corresponde a countries
-            countries?.let{ countriesAdapter.updateCountries(it) }
+            countries?.let{
+                countriesList.visibility = View.VISIBLE
+                countriesAdapter.updateCountries(it) }
         })
 
         //Observer que carga el mensaje de error en caso de generarse
         viewModel.countryLoadError.observe(this, Observer { isError ->
-            isError?.let{list_error.visibility = if(it) View.VISIBLE else View.GONE}
-        })
+            isError?.let{list_error.visibility = if(it) View.VISIBLE else View.GONE
+            if (it){
+                countriesList.visibility = View.GONE
+            }
+        }})
 
         //Observer que carga muestra la animacion de carga
         viewModel.loading.observe(this, Observer { isLoading ->

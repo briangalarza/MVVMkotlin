@@ -6,6 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.briangalarza.mvvmkotlin.R
 import com.briangalarza.mvvmkotlin.model.Country
+import com.briangalarza.mvvmkotlin.util.getProgressDrawable
+import com.briangalarza.mvvmkotlin.util.loadImage
+import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.item_country.view.*
 
 class CountryListAdapter (var countries:ArrayList<Country>):RecyclerView.Adapter<CountryListAdapter.CountryViewHolder>() {
@@ -27,7 +30,7 @@ class CountryListAdapter (var countries:ArrayList<Country>):RecyclerView.Adapter
     //Obtenemos la cantidad de elementos
     override fun getItemCount() = countries.size
 
-    //Metodo para recuperar la posición de un elemento del listado
+    //Metodo para insertar en el recycler los distintos elementos
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
         holder.bind(countries[position])
 
@@ -37,11 +40,20 @@ class CountryListAdapter (var countries:ArrayList<Country>):RecyclerView.Adapter
     //Colocamos el valor en el elemento name
     class CountryViewHolder(view: View):RecyclerView.ViewHolder(view){
 
-        val countryName = view.name
+        private val imageView = view.imageView
+        private val countryName = view.name
+        private val countryCapital = view.capital
+        private val progressDrawable = getProgressDrawable(view.context)
 
         fun bind(country: Country){
             countryName.text = country.countryName
-
+            countryCapital.text = country.capital
+            imageView.loadImage(country.flag,progressDrawable)
         }
+
+
+
     }
+
+
 }
