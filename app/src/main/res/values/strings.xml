@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MVVM kotlin</string>
+    <string name="error_text">Ha ocurrido un error cargando texto</string>
 </resources>
