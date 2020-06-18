@@ -16,7 +16,7 @@ class ListViewModel: ViewModel() {
     //Servicio de retrofit con dagger
 
     @Inject
-    lateinit var  countriesService: CountriesService
+    lateinit var countriesService: CountriesService
 
     init{
         DaggerApiComponent.create().inject(this)
@@ -67,29 +67,6 @@ class ListViewModel: ViewModel() {
                 })
         )
 
-
-
-
-       /*
-        //Prueba de datos genericos
-        val mockData = listOf(Country("CountryA"),
-            Country("CountryB"),
-            Country("CountryC"),
-            Country("CountryD"),
-            Country("CountryE"),
-            Country("CountryF"),
-            Country("CountryG"),
-            Country("CountryH"),
-            Country("CountryI"),
-            Country("CountryJ")
-            )
-
-        //Actualizamos el listado de paises obtenidos e indicamos que finalizo la carga y que no hubo errores
-        countryLoadError.value = false
-        loading.value = false
-        countries.value = mockData
-
-        */
     }
     override fun onCleared() {
         super.onCleared()
