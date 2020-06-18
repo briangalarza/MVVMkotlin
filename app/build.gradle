@@ -1,3 +1,18 @@
+//OneSignal
+buildscript {
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/'}
+    }
+    dependencies {
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.6, 0.99.99]'
+    }
+}
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
+repositories {
+    maven { url 'https://maven.google.com' }
+}
+
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
@@ -5,6 +20,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
+
 
 android {
     compileSdkVersion 29
@@ -16,6 +32,14 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [
+                onesignal_app_id: '76c9de2d-1eac-42cb-8bd6-6797f217191e',
+                // Project number pulled from dashboard, local value is ignored.
+                onesignal_google_project_number: 'REMOTE'
+        ]
+
+
     }
     buildTypes {
         release {
@@ -24,6 +48,8 @@ android {
         }
     }
 }
+
+
 
 //Versiones de las librerias
 def lifeCycleExtensionsVersion = '1.1.1'
@@ -70,6 +96,8 @@ dependencies {
     //LifeCycle
     implementation "android.arch.lifecycle:extensions:$lifeCycleExtensionsVersion"
 
+    //OneSignal
+    implementation 'com.onesignal:OneSignal:[3.13.0, 3.99.99]'
 
     testImplementation 'junit:junit:4.12'
 

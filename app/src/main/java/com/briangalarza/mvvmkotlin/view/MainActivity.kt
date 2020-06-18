@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.briangalarza.mvvmkotlin.R
 import com.briangalarza.mvvmkotlin.viewModel.ListViewModel
+import com.onesignal.OneSignal
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +21,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // OneSignal Initialization
+        OneSignal.startInit(this)
+            .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+            .unsubscribeWhenNotificationsAreDisabled(true)
+            .init()
 
         //viewModel instanciado
         viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
